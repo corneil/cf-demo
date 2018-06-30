@@ -1,0 +1,38 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.3.RELEASE'
+    }
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+subprojects {
+    apply plugin: 'io.spring.dependency-management'
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    group = 'com.github.corneil.cloud_foundry'
+    version = '0.0.1-SNAPSHOT'
+
+    ext {
+        springCloudServicesVersion = '2.0.0.RC1'
+        springCloudVersion = 'Finchley.RELEASE'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "io.pivotal.spring.cloud:spring-cloud-services-dependencies:${springCloudServicesVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+}

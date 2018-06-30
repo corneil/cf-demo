@@ -1,0 +1,7 @@
+---
+applications:
+- name: cf-demo
+  memory: 1G
+  random-route: true
+  path: build/libs/cf-demo.jar
+
