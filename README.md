@@ -6,10 +6,13 @@
 * Install Java 8 JDK
 * Install Git client
 * Install an IDE of your choice.   
-    * [Spring Tool Suite](https://spring.io/tools/sts/all/)
-    * [VS Code](https://code.visualstudio.com/)
-    * [IntelliJ Idea](https://www.jetbrains.com/idea/download/)   
-* Ensure you have `curl` installed: [https://curl.haxx.se/download.html](https://curl.haxx.se/download.html)
+    * [Netbeans](https://netbeans.org/downloads/)
+    * [Spring Tool Suite](https://spring.io/tools/sts/all/)    
+    * [IntelliJ Idea](https://www.jetbrains.com/idea/download/)
+    * [VS Code](https://code.visualstudio.com/)       
+* Ensure you have commandline http client installed. Like: 
+    * cURL [https://curl.haxx.se/download.html](https://curl.haxx.se/download.html)
+    * HTTPie [https://httpie.org/](https://httpie.org/)
 * [Install Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
 
@@ -35,5 +38,61 @@ chmod a+x ./gradlew
 ```bash
 cf login -a api.run.pivotal.io
 cd start 
-cf push 
+cf push
+# Take note of the random route name provided
+# View recent log
+cf logs cf-demo --recent
+# View log output
+cf logs cf-demo 
 ```
+
+In a new command shell execute http request to view logs
+
+```bash
+curl -i http://<route-name>/event
+# OR
+http http://<route-name>/event
+```
+
+In command shell execte http POST to create events
+```bash
+curl -i -X POST http://<route-name>/event/event1
+# OR
+http POST http://<route-name>/event/event1
+```
+
+The view the logs to see events or specific event
+
+```bash
+curl -i http://<route-name>/event/event1
+# OR
+http http://<route-name>/event/event1
+```
+
+# Tasks
+
+## Relational Database Support
+
+### Spring Data Repository
+Add database support by implementing a Spring Data Repository for saving and retrieving events from a relational database.
+
+### Create database service
+
+```bash
+cf marketplace -s elephantsql
+# Create a service instance with the free plan:
+cf create-service elephantsql turtle cf-demo-db
+# Bind the newly created service to the app:
+cf bind-service cf-demo cf-demo-db
+# Build application while in `start`
+../gradlew assemble
+# Deploy update
+cf push
+```
+
+## Message Queue Support
+
+### AMQP Listener
+Implement a listener that will receive an event on a queue and write it to the database. Change service to send event to the queue.
+
+### Create message queue service
