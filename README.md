@@ -95,4 +95,14 @@ cf push
 ### AMQP Listener
 Implement a listener that will receive an event on a queue and write it to the database. Change service to send event to the queue.
 
+### RabbitMQ Configuration
+Provide configuration for Queue, TopicExchange, Binding, MessageListenerContainer and MessageListenerAdapter
+
 ### Create message queue service
+
+```bash
+cf marketplace -s cloudamqp
+# Create a CloudAMQP service instance for the free plan:
+cf create-service cloudamqp lemur cf-demo-mq 
+cf bind-service cf-demo cf-demo-mq
+```

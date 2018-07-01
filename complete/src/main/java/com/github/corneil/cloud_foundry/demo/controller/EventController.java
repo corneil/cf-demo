@@ -1,9 +1,11 @@
 package com.github.corneil.cloud_foundry.demo.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.corneil.cloud_foundry.demo.model.Event;
 import com.github.corneil.cloud_foundry.demo.model.EventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +30,12 @@ public class EventController {
 	@RequestMapping(path = "/{eventSource}", method = RequestMethod.POST)
 	public ResponseEntity createEvent(@PathVariable("eventSource") String eventSource) {
 		log.info("createEvent:{}", eventSource);
-		eventService.createEvent(eventSource);
+		try {
+			eventService.createEvent(eventSource);
+		} catch (JsonProcessingException e) {
+			log.error("createEvent:exception:" + e, e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.toString());
+		}
 		return ResponseEntity.ok().build();
 	}
 
