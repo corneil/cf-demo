@@ -93,7 +93,10 @@ cf push
 ## Message Queue Support
 
 ### AMQP Listener
-Implement a listener that will receive an event on a queue and write it to the database. Change service to send event to the queue.
+Implement a listener that will receive an event on a queue and write it to the database. Change service to send event to the queue.  
+Hint:
+    Send messages with `org.springframework.amqp.core.AmqpTemplate`
+    `org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer` is sufficient listener. 
 
 ### RabbitMQ Configuration
 Provide configuration for Queue, TopicExchange, Binding, MessageListenerContainer and MessageListenerAdapter
