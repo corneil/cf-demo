@@ -2,7 +2,7 @@
 
 # Introduction
 
-## Reguirements
+## Requirements
 * Install Java 8 JDK
 * Install Git client
 * Install an IDE of your choice.   
@@ -49,10 +49,22 @@ cf logs cf-demo
 In a new command shell execute http request to view logs
 
 ```bash
-curl -i http://<route-name>/event
+curl -i http://<route-name>/event?period=1h,1m
 # OR
-http http://<route-name>/event
+http http://<route-name>/event?period=1h,1m
 ```
+The parameter `period` is optional and denotes the search range in the format:
+
+* y - Years before now
+* M - Months before now
+* d - Days before now
+* h - Hours before now
+* m - Minutes before now
+* s - Seconds before now
+
+Examples:
+* `5M` - From 5 months before until now.
+* `5M,1d` -  From 5 months before until 1 day before now.
 
 In command shell execte http POST to create events
 ```bash
@@ -106,6 +118,10 @@ Provide configuration for Queue, TopicExchange, Binding, MessageListenerContaine
 ```bash
 cf marketplace -s cloudamqp
 # Create a CloudAMQP service instance for the free plan:
-cf create-service cloudamqp lemur cf-demo-mq 
+cf create-service cloudamqp lemur cf-demo-mq
+# Bind new service to application 
 cf bind-service cf-demo cf-demo-mq
+# Deploy new version of application
+cf push
 ```
+
