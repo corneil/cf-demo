@@ -1,8 +1,8 @@
 ---
 applications:
-- name: cf-demo
+- name: cf-loader
   memory: 1G
   random-route: true
-  path: build/libs/cf-demo.jar
+  path: build/libs/cf-loader.jar
   env:
     SPRING_PROFILES_ACTIVE : cloud

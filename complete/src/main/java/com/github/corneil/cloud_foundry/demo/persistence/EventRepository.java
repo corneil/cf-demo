@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Date;
 import java.util.stream.Stream;
 
-public interface EventRepository extends CrudRepository<Event, Long> {
+public interface EventRepository extends CrudRepository<Event, String> {
 	Stream<Event> findAllByEventSource(String eventSource);
 
 	Stream<Event> findAllByEventDateBetween(Date startDate, Date endDate);

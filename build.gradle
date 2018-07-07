@@ -24,7 +24,7 @@ subprojects {
     version = '0.0.1-SNAPSHOT'
 
     ext {
-        springCloudServicesVersion = '2.0.0.RC1'
+        springCloudServicesVersion = '2.0.0.RELEASE'
         springCloudVersion = 'Finchley.RELEASE'
     }
 

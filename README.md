@@ -42,8 +42,9 @@ cf push
 # Take note of the random route name provided
 # View recent log
 cf logs cf-demo --recent
-# View log output
-cf logs cf-demo 
+# Track log output
+cf logs cf-demo
+ 
 ```
 
 In a new command shell execute http request to view logs
@@ -86,7 +87,11 @@ http http://<route-name>/event/event1
 ## Relational Database Support
 
 ### Spring Data Repository
-Add database support by implementing a Spring Data Repository for saving and retrieving events from a relational database.
+Update `com.github.corneil.cloud_foundry.demo.service.EventServiceImpl` and database support by implementing a Spring Data Repository for saving and retrieving events from a relational database.
+
+Create `@Configuration` annotated class by extending `org.springframework.cloud.config.java.AbstractCloudConfig` and add bean to retrieve `DataSource`
+
+Add `@Transactional` to controller methods to ensure `Stream` remains valid.
 
 ### Create database service
 
@@ -104,14 +109,14 @@ cf push
 
 ## Message Queue Support
 
-### AMQP Listener
-Implement a listener that will receive an event on a queue and write it to the database. Change service to send event to the queue.  
-Hint:
-    Send messages with `org.springframework.amqp.core.AmqpTemplate`
-    `org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer` is sufficient listener. 
+Provide configuration for `Queue` and `ConnectionFactory`
 
-### RabbitMQ Configuration
-Provide configuration for Queue, TopicExchange, Binding, MessageListenerContainer and MessageListenerAdapter
+### Sending events to queue
+Send messages with `AmqpTemplate`
+
+### Listening for events
+Implement a listener method annotated with `@RabbitListener` that will receive an event on a queue and write it to the database. 
+Change service to send event to the queue.
 
 ### Create message queue service
 

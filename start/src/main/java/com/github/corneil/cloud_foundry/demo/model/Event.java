@@ -10,6 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Event {
+    private String id;
 	private String eventSource;
 	private Date eventDate;
 }

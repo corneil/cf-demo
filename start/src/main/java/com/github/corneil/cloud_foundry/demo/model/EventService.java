@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.stream.Stream;
 
 public interface EventService {
-	void createEvent(String eventSource);
+	String createEvent(String eventSource);
 
 	Stream<Event> listAll();
 

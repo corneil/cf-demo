@@ -7,8 +7,8 @@ import com.github.corneil.cloud_foundry.demo.util.TimeRange;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,18 +33,14 @@ public class EventController {
     }
 
     @RequestMapping(path = "/{eventSource}", method = RequestMethod.POST)
-    public ResponseEntity createEvent(@PathVariable("eventSource") String eventSource) {
+    @Transactional
+    public ResponseEntity createEvent(@PathVariable("eventSource") String eventSource) throws JsonProcessingException {
         log.info("createEvent:{}", eventSource);
-        try {
-            eventService.createEvent(eventSource);
-        } catch (JsonProcessingException e) {
-            log.error("createEvent:exception:" + e, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.toString());
-        }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(eventService.createEvent(eventSource));
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @Transactional(readOnly = true)
     public ResponseEntity<List<Event>> getEvents(@RequestParam(name = "period", required = false) String period) {
         log.info("getEvents:{}", period);
         if (StringUtils.isEmpty(period)) {
@@ -56,6 +52,7 @@ public class EventController {
     }
 
     @RequestMapping(path = "/{eventSource}", method = RequestMethod.GET)
+    @Transactional(readOnly = true)
     public ResponseEntity<List<Event>> getEventsBySource(@PathVariable("eventSource") String eventSource,
                                                          @RequestParam(name = "period", required = false) String period) {
         log.info("getEventsBySource:{}", eventSource);

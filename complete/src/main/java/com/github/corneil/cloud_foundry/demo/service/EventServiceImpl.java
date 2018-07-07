@@ -2,17 +2,20 @@ package com.github.corneil.cloud_foundry.demo.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.corneil.cloud_foundry.demo.config.MessageQueueNames;
 import com.github.corneil.cloud_foundry.demo.model.Event;
 import com.github.corneil.cloud_foundry.demo.model.EventService;
 import com.github.corneil.cloud_foundry.demo.persistence.EventRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.UUID;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -31,17 +34,29 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional
-    public void createEvent(String eventSource) throws JsonProcessingException {
+    public String createEvent(String eventSource) throws JsonProcessingException {
         Assert.notNull(eventSource, "eventSource Required");
-        Event event = new Event(eventSource, new Date());
+        Event event = new Event(UUID.randomUUID().toString(), eventSource, new Date());
         log.info("createEvent:event:{}", event);
         if (amqpTemplate != null) {
             final String message = mapper.writeValueAsString(event);
             log.info("createEvent:message:{}", message);
-            amqpTemplate.convertAndSend(MessageQueueNames.TOPIC_EXCHANGE_NAME, MessageQueueNames.ROUTING_KEY, message);
+            amqpTemplate.convertAndSend("cf-demo-queue", message);
         } else {
             eventRepository.save(event);
         }
+        return event.getId();
+    }
+
+
+    @Transactional
+    @RabbitListener(queues = "cf-demo-queue")
+    public void receiveMessage(@Payload String message) throws IOException {
+        log.info("receiveMessage:message={}", message);
+        Event event = mapper.readValue(message, Event.class);
+        log.info("receiveMessage:event:{}", event);
+        eventRepository.save(event);
+        log.info("receiveMessage:saved:event:{}", event);
     }
 
     @Override

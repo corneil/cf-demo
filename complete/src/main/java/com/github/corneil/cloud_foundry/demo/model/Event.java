@@ -1,10 +1,10 @@
 package com.github.corneil.cloud_foundry.demo.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -13,21 +13,15 @@ import java.util.Date;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Event {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	@NotNull
-	private String eventSource;
-	@Temporal(value = TemporalType.TIMESTAMP)
-	@NotNull
-	private Date eventDate;
+    @Id
+    private String id;
+    @NotNull
+    private String eventSource;
+    @Temporal(value = TemporalType.TIMESTAMP)
+    @NotNull
+    private Date eventDate;
 
-	public Event(@NotNull String eventSource, @NotNull Date eventDate) {
-		this.eventSource = eventSource;
-		this.eventDate = eventDate;
-	}
-
-	public Event() {
-	}
 }
