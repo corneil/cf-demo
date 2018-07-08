@@ -89,7 +89,11 @@ http http://<route-name>/event/event1
 ### Spring Data Repository
 Update `com.github.corneil.cloud_foundry.demo.service.EventServiceImpl` and database support by implementing a Spring Data Repository for saving and retrieving events from a relational database.
 
-Create `@Configuration` annotated class by extending `org.springframework.cloud.config.java.AbstractCloudConfig` and add bean to retrieve `DataSource`
+[Spring Data Reference](https://docs.spring.io/spring-data/jpa/docs/2.0.8.RELEASE/reference/html/)
+
+Create `@Configuration` annotated class by extending `AbstractCloudConfig` and add bean to retrieve `DataSource`
+
+[Configuring Service Connections for Spring](https://docs.cloudfoundry.org/buildpacks/java/configuring-service-connections/spring-service-bindings.html)
 
 Add `@Transactional` to controller methods to ensure `Stream` remains valid.
 
@@ -109,7 +113,7 @@ cf push
 
 ## Message Queue Support
 
-Provide configuration for `Queue` and `ConnectionFactory`
+Extend `AbstractCloudConfig` to provide configuration for `Queue` and `ConnectionFactory`
 
 ### Sending events to queue
 Send messages with `AmqpTemplate`
