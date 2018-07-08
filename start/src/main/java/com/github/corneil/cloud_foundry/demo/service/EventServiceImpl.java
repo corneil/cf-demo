@@ -16,11 +16,11 @@ public class EventServiceImpl implements EventService {
     List<Event> eventList = new LinkedList<>();
 
     @Override
-    public String createEvent(String eventSource) {
+    public Event createEvent(String eventSource) {
         Assert.notNull(eventSource, "eventSource Required");
         Event event = new Event(UUID.randomUUID().toString(), eventSource, new Date());
         eventList.add(event);
-        return event.getId();
+        return event;
     }
 
     @Override

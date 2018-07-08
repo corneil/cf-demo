@@ -16,6 +16,6 @@ public class LoaderScheduler {
     @Scheduled(initialDelay = 30000, fixedDelay = 1000)
     public void invokeLoader() {
         log.info("schedule");
-        loaderService.loader(null, "schedule");
+        loaderService.loader("schedule");
     }
 }

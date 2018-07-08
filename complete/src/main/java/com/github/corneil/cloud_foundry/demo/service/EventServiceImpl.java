@@ -34,7 +34,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional
-    public String createEvent(String eventSource) throws JsonProcessingException {
+    public Event createEvent(String eventSource) throws JsonProcessingException {
         Assert.notNull(eventSource, "eventSource Required");
         Event event = new Event(UUID.randomUUID().toString(), eventSource, new Date());
         log.info("createEvent:event:{}", event);
@@ -45,7 +45,7 @@ public class EventServiceImpl implements EventService {
         } else {
             eventRepository.save(event);
         }
-        return event.getId();
+        return event;
     }
 
 

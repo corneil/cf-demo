@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,8 +17,8 @@ public class LoaderController {
     }
 
     @RequestMapping(path = "/load/{eventSource}", method = RequestMethod.POST)
-    public ResponseEntity<String> load(@PathVariable("eventSource") String eventSource, @RequestParam("server") String server) {
-        log.info("load:{},{}", eventSource, server);
-        return ResponseEntity.ok(loaderService.loader(server, eventSource));
+    public ResponseEntity<Event> load(@PathVariable("eventSource") String eventSource) {
+        log.info("load:{}", eventSource);
+        return ResponseEntity.ok(loaderService.loader(eventSource));
     }
 }

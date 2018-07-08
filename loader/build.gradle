@@ -7,6 +7,8 @@ sourceCompatibility = 1.8
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.retry:spring-retry'
+    compile 'io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry'
+    compile 'org.springframework.cloud:spring-cloud-starter-openfeign:2.0.0.RELEASE'
     compileOnly 'org.projectlombok:lombok'
     compile 'org.springframework:spring-aspects'
     testCompile 'org.springframework.boot:spring-boot-starter-test'

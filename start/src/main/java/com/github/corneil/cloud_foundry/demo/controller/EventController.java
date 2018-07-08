@@ -31,7 +31,7 @@ public class EventController {
     }
 
     @RequestMapping(path = "/{eventSource}", method = RequestMethod.POST)
-    public ResponseEntity<String> createEvent(@PathVariable("eventSource") String eventSource) {
+    public ResponseEntity<Event> createEvent(@PathVariable("eventSource") String eventSource) {
         log.info("createEvent:{}", eventSource);
         return ResponseEntity.ok(eventService.createEvent(eventSource));
     }
