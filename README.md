@@ -115,6 +115,8 @@ cf push
 
 Extend `AbstractCloudConfig` to provide configuration for `Queue` and `ConnectionFactory`
 
+[AbstractCloudConfig](https://docs.spring.io/spring-cloud/docs/current/api/org/springframework/cloud/config/java/AbstractCloudConfig.html)
+
 ### Sending events to queue
 Send messages with `AmqpTemplate`
 
