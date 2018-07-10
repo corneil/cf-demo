@@ -86,6 +86,10 @@ http http://<route-name>/event/event1
 
 ## Relational Database Support
 
+Add starter dependencies:
+* `org.springframework.boot:spring-boot-starter-data-jpa` 
+* `org.springframework.boot:spring-boot-starter-cloud-connectors`
+
 ### Spring Data Repository
 Update `com.github.corneil.cloud_foundry.demo.service.EventServiceImpl` and database support by implementing a Spring Data Repository for saving and retrieving events from a relational database.
 
@@ -112,6 +116,8 @@ cf push
 ```
 
 ## Message Queue Support
+
+Add start dependency `org.springframework.boot:spring-boot-starter-amqp`
 
 Extend `AbstractCloudConfig` to provide configuration for `Queue` and `ConnectionFactory`
 
