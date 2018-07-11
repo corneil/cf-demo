@@ -1,4 +1,5 @@
 rootProject.name = 'cf-demo'
 include ':start'
-
+include ':complete'
+include ':loader'
 
