@@ -7,8 +7,15 @@ sourceCompatibility = 1.8
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.data:spring-data-commons'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.cloud:spring-cloud-spring-service-connector'
+    compile 'org.springframework.boot:spring-boot-starter-cloud-connectors'
+    compile 'org.springframework.cloud:spring-cloud-cloudfoundry-connector'
+    compile 'org.springframework.boot:spring-boot-starter-amqp'
     compile 'joda-time:joda-time'
-	compileOnly 'org.projectlombok:lombok'
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    runtime 'org.postgresql:postgresql'
+    compileOnly 'org.projectlombok:lombok'
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 

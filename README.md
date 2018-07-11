@@ -95,7 +95,15 @@ Create `@Configuration` annotated class by extending `AbstractCloudConfig` and a
 
 [Configuring Service Connections for Spring](https://docs.cloudfoundry.org/buildpacks/java/configuring-service-connections/spring-service-bindings.html)
 
+Dependencies: 
+* `org.springframework.cloud:spring-cloud-cloudfoundry-connector`
+* `org.springframework.cloud:spring-cloud-spring-service-connector`
+* `org.springframework.boot:spring-boot-starter-data-jpa`
+* `org.postgresql:postgresql`
+
 Add `@Transactional` to controller methods to ensure `Stream` remains valid.
+
+Add `spring.jpa.generate-ddl=true` to `application.properties`
 
 ### Create database service
 

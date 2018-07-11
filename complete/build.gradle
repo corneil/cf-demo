@@ -15,7 +15,7 @@ dependencies {
 	compile 'org.springframework.session:spring-session-core'
     compile 'joda-time:joda-time'
 	runtime 'com.h2database:h2'
-	runtime 'mysql:mysql-connector-java'
+    runtime 'org.postgresql:postgresql'
 	compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
 	compileOnly 'org.projectlombok:lombok'
 	testCompile 'org.springframework.boot:spring-boot-starter-test'

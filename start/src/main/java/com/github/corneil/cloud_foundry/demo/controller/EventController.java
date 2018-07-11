@@ -1,5 +1,6 @@
 package com.github.corneil.cloud_foundry.demo.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.corneil.cloud_foundry.demo.model.Event;
 import com.github.corneil.cloud_foundry.demo.model.EventService;
 import com.github.corneil.cloud_foundry.demo.util.TimeRange;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,12 +33,14 @@ public class EventController {
     }
 
     @RequestMapping(path = "/{eventSource}", method = RequestMethod.POST)
-    public ResponseEntity<Event> createEvent(@PathVariable("eventSource") String eventSource) {
+    @Transactional
+    public ResponseEntity<Event> createEvent(@PathVariable("eventSource") String eventSource) throws JsonProcessingException {
         log.info("createEvent:{}", eventSource);
         return ResponseEntity.ok(eventService.createEvent(eventSource));
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @Transactional(readOnly = true)
     public ResponseEntity<List<Event>> getEvents(@RequestParam(name = "period", required = false) String period) {
         log.info("getEvents:{}", period);
         if (StringUtils.isEmpty(period)) {
@@ -48,6 +52,7 @@ public class EventController {
     }
 
     @RequestMapping(path = "/{eventSource}", method = RequestMethod.GET)
+    @Transactional(readOnly = true)
     public ResponseEntity<List<Event>> getEventsBySource(@PathVariable("eventSource") String eventSource,
                                                          @RequestParam(name = "period", required = false) String period) {
         log.info("getEventsBySource:{}", eventSource);
