@@ -144,3 +144,4 @@ cf bind-service cf-demo cf-demo-mq
 cf push
 ```
 
+Slides: [https://speakerdeck.com/corneil/cloud-native-applications-for-cloud-foundry-using-spring-cloud](https://speakerdeck.com/corneil/cloud-native-applications-for-cloud-foundry-using-spring-cloud)
