@@ -1,0 +1,8 @@
+---
+applications:
+- name: cf-demo
+  memory: 768M
+  random-route: true
+  path: build/libs/cf-demo.jar
+  env:
+    SPRING_PROFILES_ACTIVE : cloud
