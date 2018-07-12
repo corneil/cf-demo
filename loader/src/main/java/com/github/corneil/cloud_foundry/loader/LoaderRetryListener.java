@@ -22,6 +22,6 @@ public class LoaderRetryListener implements RetryListener {
 
     @Override
     public <T, E extends Throwable> void onError(RetryContext context, RetryCallback<T, E> callback, Throwable throwable) {
-        log.error("retry:error:{}:{}", context, throwable);
+        log.error("retry:error:{}:{}", context, throwable.toString());
     }
 }
