@@ -17,9 +17,9 @@ public class LoaderServiceImpl implements LoaderService {
     @Override
     @Retryable(backoff = @Backoff(delay = 500L, random = true, multiplier = 1.5), maxAttempts = 100)
     public Event loader(final String eventSource) {
-        log.info("loader:{}", eventSource);
+        log.info("loader:createEvent:{}", eventSource);
         Event event = demoClient.createEvent(eventSource);
-        log.info("response:{}", event);
+        log.info("loader:created:{}", event);
         return event;
     }
 }

@@ -18,4 +18,10 @@ public class LoaderScheduler {
         log.info("schedule");
         loaderService.loader("schedule");
     }
+
+    @Scheduled(initialDelay = 10000, fixedDelay = 100)
+    public void invokeLoader2() {
+        log.info("schedule2");
+        loaderService.loader("schedule2");
+    }
 }

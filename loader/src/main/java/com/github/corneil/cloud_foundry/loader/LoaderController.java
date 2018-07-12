@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class LoaderController {
-    private LoaderServiceImpl loaderService;
+    private LoaderService loaderService;
 
-    public LoaderController(LoaderServiceImpl loaderService) {
+    public LoaderController(LoaderService loaderService) {
         this.loaderService = loaderService;
     }
 
