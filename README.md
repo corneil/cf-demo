@@ -150,6 +150,28 @@ cf bind-service cf-demo cf-demo-mq
 # Deploy new version of application
 cf push
 ```
+### Registry Server
+
+The `complete` and `mongo-demo` projects also include discovery clients and require the Spring Cloud Registry Server (Eureka) from the Netflix OSS project.
+
+```bash
+cf create-service p-service-registry trail cf-demo-registry
+cf bind-service cf-demo cf-demo-registry
+cf restage cf-demo
+```
+
+
+The `mongo-demo` sub project illustrates the use of MongoDB instead of JPA.
+
+### Create MongoDB Service
+```bash
+cd mongo-demo
+../gradlew assemble
+cf marketplace -s mlab
+cf create-service mlab sandbox cf-demo-mongo
+cf bind-service cf-demo cf-demo-mongo
+cf push
+```
 
 Slides: 
 * [Cloud Native Applications for Cloud Foundry using Spring Cloud](https://speakerdeck.com/corneil/cloud-native-applications-for-cloud-foundry-using-spring-cloud)
