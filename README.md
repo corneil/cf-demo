@@ -155,7 +155,7 @@ cf push
 The `complete` and `mongo-demo` projects also include discovery clients and require the Spring Cloud Registry Server (Eureka) from the Netflix OSS project.
 
 ```bash
-cf create-service p-service-registry trail cf-demo-registry
+cf create-service p-service-registry trial cf-demo-registry
 cf bind-service cf-demo cf-demo-registry
 cf restage cf-demo
 ```

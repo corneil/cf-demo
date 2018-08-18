@@ -6,3 +6,7 @@ applications:
   path: build/libs/cf-demo.jar
   env:
     SPRING_PROFILES_ACTIVE : cloud
+  services:
+    - cf-demo-mongo
+    - cf-demo-registry
+    - cf-demo-mq
