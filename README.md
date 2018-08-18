@@ -169,10 +169,17 @@ cd mongo-demo
 ../gradlew assemble
 cf marketplace -s mlab
 cf create-service mlab sandbox cf-demo-mongo
-cf bind-service cf-demo cf-demo-mongo
 cf push
 ```
 
+With a `services` definition in the `manifest.yml` file the service is bound during `cf push`
+
+```yaml
+  services:
+    - cf-demo-mongo
+    - cf-demo-registry
+    - cf-demo-mq
+```
 Slides: 
 * [Cloud Native Applications for Cloud Foundry using Spring Cloud](https://speakerdeck.com/corneil/cloud-native-applications-for-cloud-foundry-using-spring-cloud)
 * [Resilient Applications with Spring Cloud](https://speakerdeck.com/corneil/resilient-applications-using-spring-cloud)
